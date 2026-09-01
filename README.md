@@ -3,13 +3,12 @@
 Studying how emotional introspection and multi-agent social interactions in LLMs with unfrozen weights in a simulated environment can induce/enhance learning. Heavily inspired and motivated by The Emotion Machine by Marvin Minsky.
 
 The Idea: 
-1) Different fine-tuned agents interact in a simulated environment, involving attachment, pain, and social pressures
-2) Determine the moment-to-moment signal of extracted emotion-concept vectors from each interaction
-3) Following the free energy principle (fep), calculate valence and mood: valence is the smoothed rate of change of the relevant emotion activations and mood is a slower exponential average of valence
-4) If the original interaction involved "surprise", as defined by the fep, perform the following: 
-5) Mood = manic; loosen the kl constraint; mood = depressive, increase the kl constraint
-6) Ask the agent to verbally reflect on the interaction, which becomes the concrete training signal gated by step 5
-7) Update the weights accordingly
+1) Different fine-tuned agents interact in a simulated environment involving attachment, pain, and social pressures.
+2) Determine the moment-to-moment signal of extracted emotion-concept vectors from each interaction.
+3) Following the Free Energy Principle (FEP), calculate valence and mood: valence is the smoothed rate of change of the relevant emotion activations and mood is a slower exponential average of valence. 
+4) If the original interaction involved "surprise", as defined by the FEP, perform: mood = manic; loosen the kl constraint; mood = depressive, increase the kl constraint
+5) Ask the agent to verbally reflect on the interaction, which becomes the concrete training signal gated by step 5. 
+6) Update the weights accordingly. 
   
 The simulated world will primarily be scaffolded in Rust, with agent implemenations in Python (using Thinking Machines Lab's Inkling as the model + Tinker to fine-tune). 
 
