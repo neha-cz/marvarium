@@ -11,7 +11,7 @@ The Idea:
 6) Ask the agent to verbally reflect on the interaction, which becomes the concrete training signal gated by step 5
 7) Update the weights accordingly
   
-The simulated world will primarily be scaffolded in rust, with agent implemenations in python (using inkling as the model + tinker to fine-tune)
+The simulated world will primarily be scaffolded in Rust, with agent implemenations in Python (using Thinking Machines Lab's Inkling as the model + Tinker to fine-tune). 
 
 ![marvarium outline](surprise_gated_learning_schema.png)
 
