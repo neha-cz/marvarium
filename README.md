@@ -1,76 +1,25 @@
-# Machiavellarium
+# Marvarium
 
-Experimental platform for studying how **social interaction between learning agents** (with unfrozen weights) in a simulated environment can induce or enhance learning.
+Studying how emotional introspection and multi-agent social interactions in LLMs with unfrozen weights in a simulated environment can induce/enhance learning. Heavily inspired and motivated by The Emotion Machine by Marvin Minsky.
 
-This repository is scaffolded for a Rust-first simulation core, with room to add Python/ML components later for training and analysis.
+The Idea: 
+1) Different fine-tuned agents interact in a simulated environment involving attachment, pain, and social pressures.
+2) Determine the moment-to-moment signal of extracted emotion-concept vectors from each interaction.
+3) Following the Free Energy Principle (FEP), calculate valence and mood: valence is the smoothed rate of change of the relevant emotion activations and mood is a slower exponential average of valence. 
+4) If the original interaction involved "surprise", as defined by the FEP, perform: mood = manic; loosen the kl constraint; mood = depressive, increase the kl constraint
+5) Ask the agent to verbally reflect on the interaction, which becomes the concrete training signal gated by step 5. 
+6) Update the weights accordingly. 
+  
+The simulated world will primarily be scaffolded in Rust, with agent implemenations in Python (using Thinking Machines Lab's Inkling as the model + Tinker to fine-tune). 
 
-## Project layout
+![marvarium outline](surprise_gated_learning_schema.png)
 
-```
-machiavellarium/
-├── Cargo.toml                 # workspace root
-├── configs/default.toml       # default experiment config
-├── crates/
-│   ├── machiavellarium-core/  # shared types, config, errors
-│   ├── machiavellarium-env/   # simulation environment & loop
-│   └── machiavellarium-cli/   # binary entry point
-└── .github/workflows/ci.yml   # CI (fmt, clippy, test)
-```
+### References:
 
-Planned crates (not yet created):
-
-- `machiavellarium-agent` — agent state, policies, and unfrozen-weight updates
-- `machiavellarium-interaction` — social interaction protocols and message passing
-
-## Prerequisites
-
-- [Rust](https://rustup.rs/) (stable; see `rust-toolchain.toml`)
-- Optional: copy `.env.example` to `.env` for local overrides
-
-## Quick start
-
-```bash
-# Build the workspace
-cargo build
-
-# Run tests
-cargo test
-
-# Lint and format
-cargo fmt --all
-cargo clippy --workspace --all-targets -- -D warnings
-
-# Initialize and inspect (does not run steps)
-cargo run -p machiavellarium-cli
-
-# Run a full simulation from default config
-cargo run -p machiavellarium-cli -- --run
-
-# Use a custom config
-cargo run -p machiavellarium-cli -- --config configs/default.toml --run
-```
-
-## Configuration
-
-Experiment parameters live in TOML under `configs/`. The default file defines simulation seed, step limit, environment dimensions, agent count, and log level.
-
-Override the config path with `--config` or the `MACHIAVELLARIUM_CONFIG` environment variable.
-
-## Development
-
-| Command | Description |
-|---------|-------------|
-| `cargo build` | Build all crates |
-| `cargo test` | Run unit tests |
-| `cargo fmt --all -- --check` | Check formatting |
-| `cargo clippy --workspace --all-targets -- -D warnings` | Lint |
-| `cargo run -p machiavellarium-cli -- --help` | CLI help |
-
-## License
-
-Licensed under either of:
-
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
-- MIT License ([LICENSE-MIT](LICENSE-MIT))
-
-at your option.
+- Minsky, Marvin. The Emotion Machine: Commonsense Thinking, Artificial Intelligence, and the Future of the Human Mind. (2006)
+- Friston, Karl. The free-energy principle: a unified brain theory? (2010)
+- Joffily, Matteus & Coricelli, Giorgio. Emotional Valence and the Free-Energy Principle (2013)
+- Park, Joon Sung, et al. Generative Agents: Interactive Simulacra of Human Behavior (2023)
+- Park, Joon Sung, et al. LLM Agents Grounded in Self-Reports Enable General-Purpose Simulation of Individuals (2024)
+- Jaques, Natasha. Social Influence as Intrinsic Motivation for Multi-Agent Deep Reinforcement Learning. (2018)
+- Lindsey, Jack. Emergent Introspective Awareness in Large Language Models. (2026)
