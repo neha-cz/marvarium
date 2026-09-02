@@ -1,0 +1,9 @@
+[build]
+rustflags = ["-D", "warnings"]
+
+[target.'cfg(all())']
+rustdocflags = ["-D", "warnings"]
+
+[alias]
+lint = "clippy --workspace --all-targets -- -D warnings"
+fmt-check = "fmt --all -- --check"
